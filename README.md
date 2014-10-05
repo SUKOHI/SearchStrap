@@ -10,14 +10,14 @@ After installation using composer, add the followings to the array in  app/confi
 
     'providers' => array(  
         ...Others...,  
-        'Sukohi\FormStrap\FormStrapServiceProvider'  
+        'Sukohi\FormStrap\FormStrapServiceProvider',
     )
 
 Also
 
     'aliases' => array(  
         ...Others...,  
-        'Sukohi\FormStrap\Facades\FormStrap'
+        'FormStrap' => 'Sukohi\FormStrap\Facades\FormStrap',
     )
 And then  execute to publish the view
 
