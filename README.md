@@ -19,7 +19,7 @@ Also
         ...Others...,  
         'FormStrap' => 'Sukohi\FormStrap\Facades\FormStrap',
     )
-And then  execute to publish the view
+And then  execute the next command to publish the view
 
     php artisan view:publish sukohi/form-strap
 
