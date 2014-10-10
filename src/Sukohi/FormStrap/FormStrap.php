@@ -7,9 +7,8 @@ class FormStrap {
 
 	private $_type, $_name = '', $_value, $_label, $_view, $_url, $_text, $_cancel_position, 
 				$_separator, $_input_class, $_group_class = '';
-	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values = array();
+	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values, $_icons, $_attribute_names = array();
 	private $_submit_flag = false;
-	private $_raw_flag = true;
 	
 	public function __toString() {
 		
@@ -21,13 +20,19 @@ class FormStrap {
 
 		$this->_label = $label;
 		$this->_label_options = $options;
+		$this->_attribute_names[$this->_name] = $label;
 		return $this;
 		
 	}
 	
-	public function raw($boolean = true) {
+	public function icon($tag, $position) {
 		
-		$this->_raw_flag = $boolean;
+		if(in_array($position, array('right', 'left'))) {
+			
+			$this->_icons[$position] = $tag;
+			
+		}
+		
 		return $this;
 		
 	}
@@ -48,6 +53,26 @@ class FormStrap {
 			
 		}
 		return $this;
+		
+	}
+	
+	public function attributeNames($key = 'attribute_names') {
+		
+		$attribute_names = array();
+		
+		foreach ($this->_attribute_names as $attribute_key => $attribute_name) {
+			
+			$attribute_names[$key .'['. $attribute_key .']'] = $attribute_name;
+			
+		}
+		
+		return $this->hidden($attribute_names);
+		
+	}
+	
+	public function resetAttributeNames() {
+		
+		$this->_attribute_names = array();
 		
 	}
 	
@@ -228,7 +253,7 @@ class FormStrap {
 			'separator' => $this->_separator, 
 			'group_class' => $this->_group_class, 
 			'submit_flag' => $this->_submit_flag, 
-			'raw_flag' => $this->_raw_flag
+			'icons' => $this->_icons
 		);
 		
 	}
@@ -238,7 +263,7 @@ class FormStrap {
 		$render = View::make('packages.sukohi.form-strap.main', $this->viewParameters())->render();
 		$this->_type = $this->_name = $this->_value = $this->_label = $this->_view = $this->_url = $this->_text
 				 	= $this->_cancel_position = $this->_input_class = $this->_group_class = '';
-		$this->_options = $this->_label_options = $this->_view_options = $this->_cancel_options = array();
+		$this->_options = $this->_label_options = $this->_view_options = $this->_cancel_options = $this->_icons = array();
 		$this->_submit_flag = false;
 		return $render;
 		

@@ -9,10 +9,14 @@
 @else
 <div class="{{ (!empty($group_class)) ? $group_class : 'form-group' }}{{ $errors->has($name) ? ' has-error': '' }}">
 	@if(!empty($label))
-		@if($raw_flag)
+		@if(isset($icons['left']) || isset($icons['right']))
 		<?php 
 			$replacement = '__LABEL_REPLACEMENT__';
-			$label_tag = (string) Form::label($name, $replacement, $label_options);
+			$name_with_icons = '';
+			$name_with_icons .= (isset($icons['left'])) ? $icons['left'] : '';
+			$name_with_icons .= $name;
+			$name_with_icons .= (isset($icons['right'])) ? $icons['right'] : '';
+			$label_tag = (string) Form::label($name_with_icons, $replacement, $label_options);
 			echo str_replace($replacement, $label, $label_tag);
 		?>
 		@else

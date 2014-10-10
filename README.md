@@ -32,11 +32,11 @@ Usage(with blade)
     
 **Label**
 
-    {{ FormStrap::text('name_2', 'text')->label('LABEL') }}
+    {{ FormStrap::text('name_2', 'text')->label('LABEL_1') }}
 				
-    {{ FormStrap::text('name_3', 'text')->label('LABEL', ['class' => 'text-danger']) }}
+    {{ FormStrap::text('name_3', 'text')->label('LABEL_2', ['class' => 'text-danger']) }}
 				
-    {{ FormStrap::text('name_4', 'text')->label('<i class="fa fa-home"></i> LABEL')->raw() }}
+    {{ FormStrap::text('name_4', 'text')->label('LABEL_3')->icon('<i class="fa fa-home"></i>', 'left') }}
     
 **Password**
 
@@ -106,3 +106,13 @@ Usage(with blade)
 			->cancel('url', 'CANCEL', ['class' => 'btn btn-default btn-sm']) }}
 	
     {{ FormStrap::submit('Submit')->cancel('url')->right() }}
+    
+**Attribute Names for Validation (hidden tags)**  
+
+    {{ FormStrap::attributeNames($key = 'attribute_names') }}
+    
+and then in controller
+    
+    $validator->setAttributeNames(Input::get('attribute_names'))
+    
+    
