@@ -12,12 +12,12 @@
 		@if(isset($icons['left']) || isset($icons['right']))
 		<?php 
 			$replacement = '__LABEL_REPLACEMENT__';
-			$name_with_icons = '';
-			$name_with_icons .= (isset($icons['left'])) ? $icons['left'] : '';
-			$name_with_icons .= $name;
-			$name_with_icons .= (isset($icons['right'])) ? $icons['right'] : '';
-			$label_tag = (string) Form::label($name_with_icons, $replacement, $label_options);
-			echo str_replace($replacement, $label, $label_tag);
+			$label_with_icons = '';
+			$label_with_icons .= (isset($icons['left'])) ? $icons['left'] : '';
+			$label_with_icons .= $label;
+			$label_with_icons .= (isset($icons['right'])) ? $icons['right'] : '';
+			$label_tag = (string) Form::label($name, $replacement, $label_options);
+			echo str_replace($replacement, $label_with_icons, $label_tag);
 		?>
 		@else
 			{{ Form::label($name, $label, $label_options) }}
