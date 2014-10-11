@@ -115,4 +115,17 @@ and then in controller
     
     $validator->setAttributeNames(Input::get('attribute_names'))
     
+**Alert**
+
+When redirecting like this.
+
+    return Redirect::back()->with('danger', 'Error occured!');
     
+and then
+
+    {{ FormStrap::alert('danger') }}
+    {{ FormStrap::alert('warning') }}
+    {{ FormStrap::alert('info', $dismissable = true) }}
+    {{ FormStrap::alert('success', false) }}
+
+(in this case, only the first one will be displayed.)

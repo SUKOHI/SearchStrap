@@ -216,6 +216,15 @@ class FormStrap {
 		
 	}
 	
+	public static function alert($level, $dismissable = true) {
+		
+		return View::make('packages.sukohi.form-strap.alert', array(
+			'level' => $level, 
+			'dismissable' => $dismissable
+		))->render();
+		
+	}
+	
 	protected function setView($view) {
 		
 		if(empty($this->_view)) $this->_view = $view;
