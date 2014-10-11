@@ -128,10 +128,8 @@ and then
     {{ FormStrap::alert('info', $dismissable = true) }}
     {{ FormStrap::alert('success', false) }}
 
-in this case, only the first one will be displayed. 
-  
+(in this case, only the first one will be displayed. )
+Also you can use array and empty that can cover all levels.
 
     {{ FormStrap::alert(['danger', 'warning']) }}
     {{ FormStrap::alert() }}
-    
-Also you can use array and empty that can cover all levels.
