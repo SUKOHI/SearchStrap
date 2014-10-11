@@ -1,9 +1,9 @@
 FormStrap
 ====
 
-A PHP package mainly developed for Laravel to generate form input tags of Bootstrap that can display errors and labels.
+A PHP package mainly developed for Laravel to generate form input tags of Bootstrap that can automatically display errors, labels and alerts.
 
-Installation&setting for Laravel
+Installation&settings for Laravel
 ====
 
 After installation using composer, add the followings to the array in  app/config/app.php
@@ -128,4 +128,10 @@ and then
     {{ FormStrap::alert('info', $dismissable = true) }}
     {{ FormStrap::alert('success', false) }}
 
-(in this case, only the first one will be displayed.)
+in this case, only the first one will be displayed. 
+  
+
+    {{ FormStrap::alert(['danger', 'warning']) }}
+    {{ FormStrap::alert() }}
+    
+Also you can use array and empty that can cover all levels.

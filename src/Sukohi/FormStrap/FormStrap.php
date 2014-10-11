@@ -216,12 +216,39 @@ class FormStrap {
 		
 	}
 	
-	public static function alert($level, $dismissable = true) {
+	public static function alert($level = '', $dismissable = true) {
 		
-		return View::make('packages.sukohi.form-strap.alert', array(
-			'level' => $level, 
-			'dismissable' => $dismissable
-		))->render();
+		$alert = '';
+		$default_levels = array('danger', 'warning', 'success', 'info');
+		
+		if(empty($level)) {
+			
+			$levels = $default_levels;
+			
+		} else if(!is_array($level)) {
+			
+			$levels = array($level);
+			
+		} else {
+			
+			$levels = $level;
+			
+		}
+		
+		foreach ($levels as $level) {
+			
+			if(in_array($level, $default_levels)) {
+
+				$alert .= View::make('packages.sukohi.form-strap.alert', array(
+						'level' => $level,
+						'dismissable' => $dismissable
+				))->render();
+				
+			}
+			
+		}
+		
+		return $alert;
 		
 	}
 	
