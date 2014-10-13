@@ -55,19 +55,29 @@ class FormStrap {
 		return $this;
 		
 	}
+
+	public function attributeNames($key = 'attribute_names', $additional_values=array()) {
 	
-	public function attributeNames($key = 'attribute_names') {
-		
 		$attribute_names = array();
-		
+	
 		foreach ($this->_attribute_names as $attribute_key => $attribute_name) {
-			
+				
 			$attribute_names[$key .'['. $attribute_key .']'] = $attribute_name;
-			
+				
 		}
-		
+	
+		if(!empty($additional_values)) {
+				
+			foreach ($additional_values as $attribute_key => $attribute_name) {
+					
+				$attribute_names[$key .'['. $attribute_key .']'] = $attribute_name;
+					
+			}
+				
+		}
+	
 		return $this->hidden($attribute_names);
-		
+	
 	}
 	
 	public function resetAttributeNames() {
