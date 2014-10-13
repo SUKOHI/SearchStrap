@@ -111,6 +111,14 @@ Usage(with blade)
 
     {{ FormStrap::attributeNames($key = 'attribute_names') }}
     
+     or you can add/overwrite attributes using array.
+    
+    {{ FormStrap::attributeNames('attribute_names', array(
+        'attribute_1' => 'value_1', 
+        'attribute_2' => 'value_2',
+        'attribute_3' => 'value_3'
+    )) }}
+    
 and then in controller
     
     $validator->setAttributeNames(Input::get('attribute_names'))
