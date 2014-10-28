@@ -135,9 +135,26 @@ and then
     {{ FormStrap::alert('warning') }}
     {{ FormStrap::alert('info', $dismissable = true) }}
     {{ FormStrap::alert('success', false) }}
+    
+    // If you'd like to add icon(s)
+    
+    {{ FormStrap::alert()->icons(array(
 
+    	'danger' => '<i class="fa fa-***"></i> ', 
+    	'warning' => '<i class="fa fa-***"></i> ', 
+    	'primary' => '<i class="fa fa-***"></i> ', 
+	    'info' => '<i class="fa fa-***"></i> '
+	
+    )) }}
+    
 (in this case, only the first one will be displayed. )  
 Also you can use array and empty that can cover all levels.
 
     {{ FormStrap::alert(['danger', 'warning']) }}
     {{ FormStrap::alert() }}
+    
+License
+====
+This package is licensed under the MIT License.
+
+Copyright 2014 Sukohi Kuhoh

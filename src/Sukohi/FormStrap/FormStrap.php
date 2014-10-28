@@ -7,8 +7,9 @@ class FormStrap {
 
 	private $_type, $_name = '', $_value, $_label, $_view, $_url, $_text, $_cancel_position, 
 				$_separator, $_input_class, $_group_class = '';
-	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values, $_icons, $_attribute_names = array();
-	private $_submit_flag = false;
+	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values, $_icons, 
+				$_attribute_names, $_alert_icons = array();
+	private $_submit_flag, $_alert_dismissable = false;
 	
 	public function __toString() {
 		
@@ -226,39 +227,18 @@ class FormStrap {
 		
 	}
 	
-	public static function alert($level = '', $dismissable = true) {
+	public function alert($level = '', $dismissable = true) {
 		
-		$alert = '';
-		$default_levels = array('danger', 'warning', 'success', 'info');
+		$this->_type = 'alert';
+		$this->_alert_dismissable = $dismissable;
+		return $this;
 		
-		if(empty($level)) {
-			
-			$levels = $default_levels;
-			
-		} else if(!is_array($level)) {
-			
-			$levels = array($level);
-			
-		} else {
-			
-			$levels = $level;
-			
-		}
+	}
+	
+	public function icons($icons) {
 		
-		foreach ($levels as $level) {
-			
-			if(in_array($level, $default_levels)) {
-
-				$alert .= View::make('packages.sukohi.form-strap.alert', array(
-						'level' => $level,
-						'dismissable' => $dismissable
-				))->render();
-				
-			}
-			
-		}
-		
-		return $alert;
+		$this->_alert_icons = $icons;
+		return $this;
 		
 	}
 	
@@ -306,11 +286,61 @@ class FormStrap {
 	
 	protected function render() {
 		
-		$render = View::make('packages.sukohi.form-strap.main', $this->viewParameters())->render();
+		$render = '';
+		
+		if($this->_type == 'alert') {
+
+			$render = $this->alertRender();
+			
+		} else {
+			
+			$render = View::make('packages.sukohi.form-strap.main', $this->viewParameters())->render();
+			
+		}
+		
 		$this->_type = $this->_name = $this->_value = $this->_label = $this->_view = $this->_url = $this->_text
 				 	= $this->_cancel_position = $this->_input_class = $this->_group_class = '';
 		$this->_options = $this->_label_options = $this->_view_options = $this->_cancel_options = $this->_icons = array();
 		$this->_submit_flag = false;
+		return $render;
+		
+	}
+	
+	private function alertRender() {
+		
+		$render = '';
+		$default_levels = array('danger', 'warning', 'success', 'info');
+			
+		if(empty($level)) {
+				
+			$levels = $default_levels;
+				
+		} else if(!is_array($level)) {
+				
+			$levels = array($level);
+				
+		} else {
+				
+			$levels = $level;
+				
+		}
+		
+		foreach ($levels as $level) {
+		
+			if(in_array($level, $default_levels)) {
+					
+				$render .= View::make('packages.sukohi.form-strap.alert', array(
+						'level' => $level,
+						'dismissable' => $this->_alert_dismissable, 
+						'icons' => $this->_alert_icons
+				))->render();
+					
+			}
+		
+		}
+			
+		$this->_alert_icons = array();
+		$this->_alert_dismissable = false;
 		return $render;
 		
 	}
