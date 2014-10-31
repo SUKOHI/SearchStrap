@@ -122,7 +122,26 @@ Usage(with blade)
 and then in controller
     
     $validator->setAttributeNames(Input::get('attribute_names'))
-    
+
+**Option Labels**  
+This way is to get selected labels of radio buttons, checkboxes and selectbox.  
+At first, set the following to generate hidden-tags in View.
+
+    {{ FormStrap::optionLabels() }}
+
+    // or you can use custom name with additional values
+
+    {{ FormStrap::optionLabels('custom_hidden_name', array(
+	    'key' => array('1' => 'value_1', '2' => 'value_2')
+	)) }}
+
+and then 
+
+
+    $option_labels = FormStrap::selectedOptionLabels('key');
+   
+   
+
 **Alert**
 
 When redirecting like this.

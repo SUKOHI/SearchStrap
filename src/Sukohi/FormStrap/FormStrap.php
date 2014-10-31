@@ -2,13 +2,14 @@
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Form;
+use Illuminate\Support\Facades\Input;
 
 class FormStrap {
 
 	private $_type, $_name = '', $_value, $_label, $_view, $_url, $_text, $_cancel_position, 
 				$_separator, $_input_class, $_group_class = '';
 	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values, $_icons, 
-				$_attribute_names, $_alert_icons = array();
+				$_attribute_names, $_alert_icons, $_option_labels = array();
 	private $_submit_flag, $_alert_dismissable = false;
 	
 	public function __toString() {
@@ -81,6 +82,71 @@ class FormStrap {
 	
 	}
 	
+	public function optionLabels($key = 'option_labels', $additional_values = array()) {
+		
+		$option_labels = array();
+		
+		foreach ($this->_option_labels as $label_key => $labels) {
+		
+			foreach ($labels as $value => $label) {
+				
+				$option_labels[$key .'['. $label_key .']['. $value .']'] = $label;
+				
+			}
+		
+		}
+	
+		if(!empty($additional_values)) {
+				
+			foreach ($additional_values as $label_key => $labels) {
+					
+				foreach ($labels as $value => $label) {
+					
+					$option_labels[$key .'['. $label_key .']['. $value .']'] = $label;
+					
+				}
+					
+			}
+				
+		}
+		
+		return $this->hidden($option_labels);
+		
+	}
+	
+	public function selectedOptionLabels($key, $option_labels = array()) {
+		
+		$returns = array();
+		
+		if(empty($option_labels)) {
+			
+			$option_labels = Input::get('option_labels');
+			
+		}
+		
+		if(!isset($option_labels[$key]) || empty(Input::get($key))) {
+			
+			return $returns;
+				
+		}
+		
+		$labels = $option_labels[$key];
+		$values = (is_array(Input::get($key))) ? Input::get($key) : array(Input::get($key));
+
+		foreach ($values as $value) {
+			
+			if(isset($labels[$value])) {
+				
+				$returns[$value] = $labels[$value];
+				
+			}
+			
+		}
+		
+		return $returns;
+		
+	}
+	
 	public function resetAttributeNames() {
 		
 		$this->_attribute_names = array();
@@ -134,6 +200,7 @@ class FormStrap {
 		$this->_checked_values = array($checked_value);
 		$this->_options = $options;
 		$this->_separator = $separator;
+		$this->_option_labels[$name] = $values;
 		return $this;
 		
 	}
@@ -146,6 +213,7 @@ class FormStrap {
 		$this->_checked_values = $checked_values;
 		$this->_options = $options;
 		$this->_separator = $separator;
+		$this->_option_labels[$name] = $values;
 		return $this;
 		
 	}
@@ -157,6 +225,7 @@ class FormStrap {
 		$this->_values = $values;
 		$this->_checked_values = array($selected_value);
 		$this->_options = $options;
+		$this->_option_labels[$name] = $values;
 		return $this;
 		
 	}
