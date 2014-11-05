@@ -124,7 +124,9 @@ class FormStrap {
 			
 		}
 		
-		if(!isset($option_labels[$key]) || empty(Input::get($key))) {
+		$input_value = Input::get($key);
+		
+		if(!isset($option_labels[$key]) || empty($input_value)) {
 			
 			return $returns;
 				
