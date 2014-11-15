@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Form;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 
 class FormStrap {
 
@@ -10,6 +11,7 @@ class FormStrap {
 				$_separator, $_input_class, $_group_class = '';
 	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values, $_icons, 
 				$_attribute_names, $_alert_icons, $_option_labels = array();
+	private $_alert_levels = array('danger', 'warning', 'success', 'info');
 	private $_submit_flag, $_alert_dismissable = false;
 	
 	public function __toString() {
@@ -306,6 +308,24 @@ class FormStrap {
 		
 	}
 	
+	public function hasAlert($lavels = array()) {
+		
+		$check_levels = (empty($lavels)) ? $this->_alert_levels : $lavels;
+		
+		foreach ($check_levels as $level) {
+			
+			if(!empty(Session::get($level))) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+		
+	}
+	
 	public function icons($icons) {
 		
 		$this->_alert_icons = $icons;
@@ -380,11 +400,10 @@ class FormStrap {
 	private function alertRender() {
 		
 		$render = '';
-		$default_levels = array('danger', 'warning', 'success', 'info');
 			
 		if(empty($level)) {
 				
-			$levels = $default_levels;
+			$levels = $this->_alert_levels;
 				
 		} else if(!is_array($level)) {
 				
@@ -398,7 +417,7 @@ class FormStrap {
 		
 		foreach ($levels as $level) {
 		
-			if(in_array($level, $default_levels)) {
+			if(in_array($level, $this->_alert_levels)) {
 					
 				$render .= View::make('packages.sukohi.form-strap.alert', array(
 						'level' => $level,

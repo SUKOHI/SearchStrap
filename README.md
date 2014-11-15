@@ -162,10 +162,22 @@ and then
     	'danger' => '<i class="fa fa-***"></i> ', 
     	'warning' => '<i class="fa fa-***"></i> ', 
     	'primary' => '<i class="fa fa-***"></i> ', 
-	    'info' => '<i class="fa fa-***"></i> '
+    	'info' => '<i class="fa fa-***"></i> '
 	
     )) }}
+
+**Check if any alert exists**
+
+    @if(FormStrap::hasAlert())
+        Alert exists!
+    @endif
     
+    or 
+    
+    @if(FormStrap::hasAlert(array('danger', 'info')))
+        Alert exists!
+    @endif
+
 (in this case, only the first one will be displayed. )  
 Also you can use array and empty that can cover all levels.
 
