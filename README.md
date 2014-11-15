@@ -166,6 +166,12 @@ and then
 	
     )) }}
 
+(in this case, only the first one will be displayed. )  
+Also you can use array and empty that can cover all levels.
+
+    {{ FormStrap::alert(['danger', 'warning']) }}
+    {{ FormStrap::alert() }}
+    
 **Check if any alert exists**
 
     @if(FormStrap::hasAlert())
@@ -178,11 +184,6 @@ and then
         Alert exists!
     @endif
 
-(in this case, only the first one will be displayed. )  
-Also you can use array and empty that can cover all levels.
-
-    {{ FormStrap::alert(['danger', 'warning']) }}
-    {{ FormStrap::alert() }}
     
 License
 ====
