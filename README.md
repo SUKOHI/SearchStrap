@@ -184,6 +184,11 @@ Also you can use array and empty that can cover all levels.
         Alert exists!
     @endif
 
+**CSS**  
+
+    FormStrap::css('input', 'class_name');  // for input
+    FormStrap::css('input', 'label');  // for input
+    FormStrap::css('input', 'group');  // for div tag surrounding input and label 
     
 License
 ====
