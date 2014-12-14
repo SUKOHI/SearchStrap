@@ -90,7 +90,7 @@ class SearchStrap {
 	    			
 	    		}
     				
-    			$model = $model->filterTitle(Input::get($column));
+    			$model = $model->$scope_method(Input::get($column));
     			break;
     				
     		}
