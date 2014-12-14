@@ -86,6 +86,44 @@ This means 'key' => 'Label'.
     	->button('Button Label', $color_type = 'primary')   // Skippable
     	->placeholder('Placeholder text')   // Skippable }}
 
+**Model Filter**  
+This method provides adding filters(where clause) to Eloquent model object.
+
+At first, you need to add accessors to a specific model you want.
+
+    class Item extends Eloquent {
+    	
+    	// Scopes 
+    	public function scopeFilterId($query, $id) {
+    		return $query->where('id', $id);
+    	}
+    	
+    	public function scopeFilterTitle($query, $title) {
+    		return $query->where('title', 'LIKE', '%'. $title .'%');
+    	}
+    	
+    	public function scopeFilterDate($query, $dt) {
+    		return $query->where('created_at', '>', $dt);
+    	}
+    	
+    }
+
+and then use like this in your Controller.
+
+		$items = Item::select();
+		$items = SearchStrap::modelFilter(
+				$items, 
+				['id', 'title', 'created_at'], 
+				['created_at' => 'date'], 
+				'filter'
+		);
+		echo $items->search_key;
+		
+* 1st argument is model object(Don't call get(), first() and on yet).
+* 2nd argument is columns to search automatically (Need to match search key which means $_GET['\*\*\*']).
+* 3rd argument is replacements values. In this case, if search key is "created_at", scopeFilterDate() will be called.
+* 4th argument is prefix. For example if you set 'search' here, scopeSearch\*\*\* will be called.
+
 License
 ====
 This package is licensed under the MIT License.

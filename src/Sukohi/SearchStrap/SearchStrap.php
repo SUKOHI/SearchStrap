@@ -73,5 +73,32 @@ class SearchStrap {
     	return View::make('packages.sukohi.search-strap.js')->render();
     	
     }
+    
+    public static function modelFilter($model, $columns, $replacements = [], $prefix = 'filter') {
+    	
+    	foreach ($columns as $column) {
+    		
+    		$scope_method = camel_case($prefix .'_'. $column);
+    		
+    		if(Input::has($column)) {
+    		
+    			$model->search_key = $column;
+    			
+	    		if(isset($replacements[$column])) {
+	    			
+	    			$column = $replacements[$column];
+	    			
+	    		}
+    				
+    			$model = $model->filterTitle(Input::get($column));
+    			break;
+    				
+    		}
+    		
+    	}
+    	
+    	return $model;
+    	
+    }
 
 }
