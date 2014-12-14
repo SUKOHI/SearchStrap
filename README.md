@@ -3,6 +3,10 @@ SearchStrap
 
 A PHP package mainly developed for Laravel to manage a search box that we can easily use.
 
+(Examples)  
+![Example-1](http://i.imgur.com/cQCPpvH.png)
+![Example-2](http://i.imgur.com/glRyfJk.png)
+
 Installation&settings for Laravel
 ====
 
