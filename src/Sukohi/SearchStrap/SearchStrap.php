@@ -76,6 +76,8 @@ class SearchStrap {
     
     public static function modelFilter($model, $columns, $replacements = [], $prefix = 'filter') {
     	
+    	$model->search_key = '';
+    	
     	foreach ($columns as $column) {
     		
     		$scope_method = camel_case($prefix .'_'. $column);
