@@ -68,9 +68,9 @@ class SearchStrap {
     	
     }
     
-    public static function js() {
+    public static function js($focus_flag = true) {
     	
-    	return View::make('packages.sukohi.search-strap.js')->render();
+    	return View::make('packages.sukohi.search-strap.js', ['focus_flag' => $focus_flag])->render();
     	
     }
     

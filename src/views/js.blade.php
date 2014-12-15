@@ -1,11 +1,18 @@
 $('#search-strap-form .dropdown-menu').find('a').bind('click', function(e) {
 	 
 	e.preventDefault();
-	var param = $(this).attr('href').replace('#','');
+	var param = $(this).attr('href').replace('#', '');
 	var filterTitle = $(this).text();
+	
+	if(param != $('#search-strap-form #search_param').val()) {
+	
+		$('#search-strap-form #search_key').val('');
+	
+	}
+	
 	$('#search-strap-form span#search_title').text(filterTitle);
 	$('#search-strap-form #search_param').val(param);
-
+	
 	var selectboxKeysStr = $('#search_param').data('dropdowns');
 
 	if(selectboxKeysStr != '') {
@@ -32,7 +39,7 @@ $('#search-strap-form .dropdown-menu').find('a').bind('click', function(e) {
 
 		} else {
 		
-			$('#search_key').show();
+			$('#search_key').show().focus();
 
 		}
 
@@ -58,3 +65,7 @@ $('#search-strap-form').on('submit', function(){
 	return false;
 
 });
+
+@if($focus_flag && empty(Request::getQueryString()))
+	$('#search_key').focus();
+@endif

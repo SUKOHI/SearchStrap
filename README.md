@@ -40,10 +40,13 @@ Usage
     <script type="text/javascript">
     $(document).ready(function(){
     
-    	{{ SearchStrap::js() }}
+    	{{ SearchStrap::js($focus_flag = true) }}
     	
     });
     </script>
+
+* If $focus_flag is true, the input box will be focused on when page loading.
+
 
 **Minimal Way**
 
