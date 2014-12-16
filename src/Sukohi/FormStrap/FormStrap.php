@@ -395,7 +395,7 @@ class FormStrap {
 		}
 		
 		$this->_type = $this->_name = $this->_value = $this->_label = $this->_view = $this->_url = $this->_text
-				 	= $this->_cancel_position = $this->_input_class = $this->_group_class = '';
+				 	= $this->_cancel_position = $this->_input_class = $this->_group_class = $this->_content_class = '';
 		$this->_options = $this->_label_options = $this->_view_options = $this->_cancel_options = $this->_icons = array();
 		$this->_submit_flag = false;
 		return $render;
