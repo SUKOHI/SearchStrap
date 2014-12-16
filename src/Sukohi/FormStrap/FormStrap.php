@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Session;
 class FormStrap {
 
 	private $_type, $_name = '', $_value, $_label, $_view, $_url, $_text, $_cancel_position, 
-				$_separator, $_input_class, $_group_class = '';
+				$_separator, $_input_class, $_group_class, $_content_class = '';
 	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values, $_icons, 
 				$_attribute_names, $_alert_icons, $_option_labels = array();
 	private $_alert_levels = array('danger', 'warning', 'success', 'info');
@@ -50,6 +50,10 @@ class FormStrap {
 		} elseif($mode == 'group') {
 			
 			$this->_group_class = $class;
+			
+		} elseif($mode == 'content') {
+			
+			$this->_content_class = $class;
 			
 		} elseif($mode == 'label') {
 			
@@ -369,6 +373,7 @@ class FormStrap {
 			'checked_values' => $this->_checked_values, 
 			'separator' => $this->_separator, 
 			'group_class' => $this->_group_class, 
+			'content_class' => $this->_content_class, 
 			'submit_flag' => $this->_submit_flag, 
 			'icons' => $this->_icons
 		);

@@ -23,7 +23,7 @@
 			{{ Form::label($name, $label, $label_options) }}
 		@endif
 	@endif
-	<div>
+	<div{{ !empty($content_class) ? ' class="'. $content_class .'"' : '' }}>
 	@if(!empty($view))
 		@include($view, $options)
 	@else
