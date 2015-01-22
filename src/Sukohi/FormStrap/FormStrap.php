@@ -68,10 +68,14 @@ class FormStrap {
 	
 		$attribute_names = array();
 	
-		foreach ($this->_attribute_names as $attribute_key => $attribute_name) {
-				
-			$attribute_names[$key .'['. $attribute_key .']'] = $attribute_name;
-				
+		if(!empty($this->_attribute_names)) {
+		
+			foreach ($this->_attribute_names as $attribute_key => $attribute_name) {
+					
+				$attribute_names[$key .'['. $attribute_key .']'] = $attribute_name;
+					
+			}
+		
 		}
 	
 		if(!empty($additional_values)) {
