@@ -322,7 +322,9 @@ class FormStrap {
 		
 		foreach ($check_levels as $level) {
 			
-			if(!empty(Session::get($level))) {
+			$session_level = Session::get($level);
+				
+			if(!empty($session_level)) {
 				
 				return true;
 				
