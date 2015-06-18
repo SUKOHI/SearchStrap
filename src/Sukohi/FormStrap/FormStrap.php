@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Session;
 
 class FormStrap {
 
-	private $_type, $_name = '', $_value, $_label, $_view, $_url, $_text, $_cancel_position, 
-				$_separator, $_input_class, $_group_class, $_content_class = '';
+	private $_type, $_name, $_value, $_label, $_view, $_url, $_text, $_cancel_position,
+				$_separator, $_input_class, $_group_class, $_content_class, $_select_redirect_url = '';
 	private $_label_options, $_options, $_cancel_options, $_values, $_checked_values, $_icons, 
 				$_attribute_names, $_alert_icons, $_option_labels = array();
 	private $_alert_levels = array('danger', 'warning', 'success', 'info');
@@ -230,7 +230,7 @@ class FormStrap {
 		
 	}
 	
-	public function select($name, $values, $selected_value, $options = array()) {
+	public function select($name, $values, $selected_value = null, $options = array(), $redirect_url = '') {
 		
 		$this->_type = 'select';
 		$this->_name = $name;
@@ -238,6 +238,7 @@ class FormStrap {
 		$this->_checked_values = array($selected_value);
 		$this->_options = $options;
 		$this->_option_labels[$name] = $values;
+        $this->_select_redirect_url = $redirect_url;
 		return $this;
 		
 	}
@@ -362,7 +363,7 @@ class FormStrap {
 			$this->_options['class'] = $this->_input_class;
 			
 		}
-		
+
 		return array(
 			'type' => $this->_type, 
 			'name' => $this->_name, 
@@ -381,7 +382,8 @@ class FormStrap {
 			'group_class' => $this->_group_class, 
 			'content_class' => $this->_content_class, 
 			'submit_flag' => $this->_submit_flag, 
-			'icons' => $this->_icons
+			'icons' => $this->_icons,
+            'select_redirect_url' => $this->_select_redirect_url
 		);
 		
 	}
@@ -401,7 +403,8 @@ class FormStrap {
 		}
 		
 		$this->_type = $this->_name = $this->_value = $this->_label = $this->_view = $this->_url = $this->_text
-				 	= $this->_cancel_position = $this->_input_class = $this->_group_class = $this->_content_class = '';
+				 	= $this->_cancel_position = $this->_input_class = $this->_group_class = $this->_content_class
+                    = $this->_select_redirect_url = '';
 		$this->_options = $this->_label_options = $this->_view_options = $this->_cancel_options = $this->_icons = array();
 		$this->_submit_flag = false;
 		return $render;

@@ -78,6 +78,17 @@ Usage(with blade)
 		'value_3' => 'label_3'
 	], 'selected_value', $options = []) }}
 	
+    {{ FormStrap::select('name_15_2', [
+        '' => '',
+        'value_1' => 'label_1',
+        'value_2' => 'label_2',
+        'value_3' => 'label_3'
+    ], 'selected_value', $options = [], $redirect_url = 'http://example.com/{selected_value}') }}
+
+    * When setting $redirect_url, the select box has "onchange" event to redirect the url.
+    * {selected_value} will be replaced with the value you selected.
+
+	
 **File**
 
     {{ FormStrap::file('name_16', $options = []) }}
