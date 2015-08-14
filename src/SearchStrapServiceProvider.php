@@ -1,8 +1,8 @@
-<?php namespace Sukohi\FormStrap;
+<?php namespace Sukohi\SearchStrap;
 
 use Illuminate\Support\ServiceProvider;
 
-class FormStrapServiceProvider extends ServiceProvider {
+class SearchStrapServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,7 +18,7 @@ class FormStrapServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->loadViewsFrom(__DIR__.'/views', 'form-strap');
+		$this->loadViewsFrom(__DIR__.'/views', 'search-strap');
 	}
 
 	/**
@@ -28,9 +28,9 @@ class FormStrapServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['form-strap'] = $this->app->share(function($app)
+		$this->app['search-strap'] = $this->app->share(function($app)
 		{
-			return new FormStrap;
+			return new SearchStrap;
 		});
 	}
 
@@ -41,7 +41,7 @@ class FormStrapServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return ['form-strap'];
+		return ['search-strap'];
 	}
 
 }

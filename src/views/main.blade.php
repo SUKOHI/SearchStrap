@@ -1,96 +1,68 @@
-@if($submit_flag)
-    @if($cancel_position == 'left')
-        {!! link_to($url, $text, $cancel_options) !!}
-    @endif
-    {!! Form::button($value, $options) !!}
-    @if($cancel_position == 'right')
-        {!! link_to($url, $text, $cancel_options) !!}
-    @endif
-@else
-    <div class="{!! (!empty($group_class)) ? $group_class : 'form-group' !!}{!! $errors->has($name) ? ' has-error': '' !!}">
-        @if(!empty($label))
-            @if(isset($icons['left']) || isset($icons['right']))
-                <?php
-                $replacement = '__LABEL_REPLACEMENT__';
-                $label_with_icons = '';
-                $label_with_icons .= (isset($icons['left'])) ? $icons['left'] : '';
-                $label_with_icons .= $label;
-                $label_with_icons .= (isset($icons['right'])) ? $icons['right'] : '';
-                $label_tag = (string) Form::label($name, $replacement, $label_options);
-                echo str_replace($replacement, $label_with_icons, $label_tag);
-                ?>
-            @else
-                {!! Form::label($name, $label, $label_options) !!}
-            @endif
-        @endif
-        <div{!! !empty($content_class) ? ' class="'. $content_class .'"' : '' !!}>
-            @if(!empty($view))
-                @include($view, $options)
-            @else
-                @if($type == 'text')
-                    {!! Form::text($name, $value, $options) !!}
-                @elseif($type == 'password')
-                    {!! Form::password($name, $options) !!}
-                @elseif($type == 'textarea')
-                    {!! Form::textarea($name, $value, $options) !!}
-                @elseif($type == 'radio')
-                    <?php
-                    $index = 0;
-                    $radios = [];
-                    foreach($values as $value => $label) {
+<form id="search-strap-form">
+	<div class="input-group">
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-{!! $color_types['filter'] !!} dropdown-toggle" data-toggle="dropdown">
+				<?php
 
-                        $options['id'] = $name .'_'. $index;
-                        $radios[] = Form::radio($name, $value, ($value == $checked_values[0]), $options)
-                                . Form::label($options['id'], $label, $options);
-                        $index++;
+				$filter_title = $filters[$default_filter_key];
 
-                    }
-                    ?>
-                    {!! implode($separator, $radios) !!}
-                @elseif($type == 'checkbox')
-                    <?php
-                    $index = 0;
-                    $checkboxes = [];
-                    $checkbox_name = (count($values) == 1) ? $name : $name .'[]';
+				foreach($filters as $key => $filter) {
 
-                    foreach($values as $value => $label) {
+					if(Request::has($key)) {
 
-                        $options['id'] = $name .'_'. $index;
-                        $checkboxes[] = Form::checkbox($checkbox_name, $value, (in_array($value, $checked_values)), $options)
-                                . Form::label($options['id'], $label, $options);
-                        $index++;
+						$filter_title = $filter;
+						$default_filter_key = $key;
 
-                    }
-                    ?>
-                    {!! implode($separator, $checkboxes) !!}
-                @elseif($type == 'select')
-                    @if(!empty($select_redirect_url))
-                        <?php
+					}
 
-                        if(!empty($select_redirect_url)) {
+				}
 
-                            $options['onchange'] = '__REDIRECT_CODE__';
+				$dropdown_value = '';
 
-                        }
-                        $select = Form::select($name, $values, $checked_values[0], $options);
-                        $js_code = 'location.href=\''. $select_redirect_url .'\'.replace(\'{selected_value}\', this.value)';
-                        echo str_replace('__REDIRECT_CODE__', $js_code, $select);
+				if(isset($dropdown_data[$default_filter_key])) {
 
-                        ?>
-                    @else
-                        {!! Form::select($name, $values, $checked_values[0], $options) !!}
-                    @endif
-                @elseif($type == 'file')
-                    {!! Form::file($name, $options) !!}
-                @elseif($type == 'hidden')
-                    @foreach($values as $value => $name)
-                        {!! Form::hidden($value, $name) !!}
-                    @endforeach
-                @endif
-            @endif
-        </div>
-        @if($errors->has($name))
-            <div class="text-danger">{!! $errors->first($name) !!}</div>
-        @endif
-    </div>
-@endif
+					$keyword = '';
+					$dropdown_value = Request::input($default_filter_key);
+
+				}
+
+				?>
+				<span id="search_title">{!! $filter_title !!}</span> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				@foreach($filters as $key => $filter)
+					<li><a href="#{!! $key !!}"><i class="fa fa-angle-double-right"></i> {!! $filter !!}</a></li>
+				@endforeach
+			</ul>
+		</div>
+		<input type="hidden" name="search_param" value="{!! $default_filter_key !!}" id="search_param" data-dropdowns="{!! (isset($dropdown_data)) ? implode(',', array_keys($dropdown_data)) : '' !!}">
+		<span id="search_key_block">
+			<input
+				type="text"
+				class="form-control"
+				placeholder="{!! $placeholder !!}"
+				id="search_key"
+				value="{!! (isset($keyword) ? $keyword : '') !!}"
+				style="{!! (isset($dropdown_data[$default_filter_key])) ? 'display:none;' : '' !!}">
+		</span>
+		@if(isset($dropdown_data))
+			@foreach($dropdown_data as $key => $dropdown_values)
+				{!! FormStrap::select(
+					$key,
+					$dropdown_values,
+					($key == $default_filter_key) ? $dropdown_value : '',
+					[
+						'id' => 'search_key_'. $key,
+						'style' => ($key == $default_filter_key) ? '' : 'display:none;'
+					]
+				)->css('group', 'search-strap-dropdown') !!}
+			@endforeach
+		@endif
+		<span class="input-group-btn">
+		@if(!empty(Request::getQueryString()))
+			<a class="btn btn-default btn-md text-muted" href="{!! Request::url() !!}" title="clear">&thinsp;<i class="fa fa-times"></i>&thinsp;</a>
+		@endif
+			<button class="btn btn-{!! $color_types['button'] !!}" type="submit">{!! $button_label !!}</button>
+		</span>
+	</div>
+</form>

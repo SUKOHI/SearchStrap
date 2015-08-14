@@ -10,11 +10,11 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "~5.0",
-        "laravelcollective/html": "~5.0"
+        "sukohi/form-strap": "2.*"
     },
     "autoload": {
         "psr-4": {
-            "Sukohi\\FormStrap\\": "src/"
+            "Sukohi\\SearchStrap\\": "src/"
         }
     },
     "minimum-stability": "stable"
