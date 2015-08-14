@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 	$size_class = '';
-	
+
 	if(isset($size)) {
-		
+
 		switch ($size) {
 
 			case 'sm':
@@ -15,19 +15,18 @@
 			case 'lg':
 				$size_class = ' btn-lg';
 				break;
-			
-			
+
 		}
-		
+
 	}
 
 ?>
 @if(isset($route) && !empty($route))
-	<?php 
-	
+	<?php
+
 		if(!isset($params)) $params = [];
 
 	?>
-	{{ HTML::linkRoute($route, 'キャンセル', $params, ['class' => 'btn btn-default btn-flat'. $size_class]) }}&nbsp;
+	{!! link_to_route($route, 'キャンセル', $params, ['class' => 'btn btn-default btn-flat'. $size_class]) !!}&nbsp;
 @endif
-<button class="btn btn-success btn-flat{{ $size_class }}" type="submit">{{ $label }} {{ Camon::glyphicon('circle-arrow-right', [], false) }}</button>
+<button class="btn btn-success btn-flat{!! $size_class !!}" type="submit">{!! $label !!} {!! Camon::glyphicon('circle-arrow-right', [], false) !!}</button>

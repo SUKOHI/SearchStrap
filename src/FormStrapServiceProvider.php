@@ -18,7 +18,7 @@ class FormStrapServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('sukohi/form-strap');
+		$this->loadViewsFrom(__DIR__.'/views', 'form-strap');
 	}
 
 	/**
@@ -41,7 +41,7 @@ class FormStrapServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('form-strap');
+		return ['form-strap'];
 	}
 
 }

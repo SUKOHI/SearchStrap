@@ -1,13 +1,13 @@
 @if($submit_flag)
     @if($cancel_position == 'left')
-        {{ HTML::link($url, $text, $cancel_options) }}
+        {!! link_to($url, $text, $cancel_options) !!}
     @endif
-    {{ Form::button($value, $options) }}
+    {!! Form::button($value, $options) !!}
     @if($cancel_position == 'right')
-        {{ HTML::link($url, $text, $cancel_options) }}
+        {!! link_to($url, $text, $cancel_options) !!}
     @endif
 @else
-    <div class="{{ (!empty($group_class)) ? $group_class : 'form-group' }}{{ $errors->has($name) ? ' has-error': '' }}">
+    <div class="{!! (!empty($group_class)) ? $group_class : 'form-group' !!}{!! $errors->has($name) ? ' has-error': '' !!}">
         @if(!empty($label))
             @if(isset($icons['left']) || isset($icons['right']))
                 <?php
@@ -20,23 +20,23 @@
                 echo str_replace($replacement, $label_with_icons, $label_tag);
                 ?>
             @else
-                {{ Form::label($name, $label, $label_options) }}
+                {!! Form::label($name, $label, $label_options) !!}
             @endif
         @endif
-        <div{{ !empty($content_class) ? ' class="'. $content_class .'"' : '' }}>
+        <div{!! !empty($content_class) ? ' class="'. $content_class .'"' : '' !!}>
             @if(!empty($view))
                 @include($view, $options)
             @else
                 @if($type == 'text')
-                    {{ Form::text($name, $value, $options) }}
+                    {!! Form::text($name, $value, $options) !!}
                 @elseif($type == 'password')
-                    {{ Form::password($name, $options) }}
+                    {!! Form::password($name, $options) !!}
                 @elseif($type == 'textarea')
-                    {{ Form::textarea($name, $value, $options) }}
+                    {!! Form::textarea($name, $value, $options) !!}
                 @elseif($type == 'radio')
                     <?php
                     $index = 0;
-                    $radios = array();
+                    $radios = [];
                     foreach($values as $value => $label) {
 
                         $options['id'] = $name .'_'. $index;
@@ -46,12 +46,13 @@
 
                     }
                     ?>
-                    {{ implode($separator, $radios) }}
+                    {!! implode($separator, $radios) !!}
                 @elseif($type == 'checkbox')
                     <?php
                     $index = 0;
-                    $checkboxes = array();
+                    $checkboxes = [];
                     $checkbox_name = (count($values) == 1) ? $name : $name .'[]';
+
                     foreach($values as $value => $label) {
 
                         $options['id'] = $name .'_'. $index;
@@ -61,7 +62,7 @@
 
                     }
                     ?>
-                    {{ implode($separator, $checkboxes) }}
+                    {!! implode($separator, $checkboxes) !!}
                 @elseif($type == 'select')
                     @if(!empty($select_redirect_url))
                         <?php
@@ -77,19 +78,19 @@
 
                         ?>
                     @else
-                        {{ Form::select($name, $values, $checked_values[0], $options) }}
+                        {!! Form::select($name, $values, $checked_values[0], $options) !!}
                     @endif
                 @elseif($type == 'file')
-                    {{ Form::file($name, $options) }}
+                    {!! Form::file($name, $options) !!}
                 @elseif($type == 'hidden')
                     @foreach($values as $value => $name)
-                        {{ Form::hidden($value, $name) }}
+                        {!! Form::hidden($value, $name) !!}
                     @endforeach
                 @endif
             @endif
         </div>
         @if($errors->has($name))
-            <div class="text-danger">{{ $errors->first($name) }}</div>
+            <div class="text-danger">{!! $errors->first($name) !!}</div>
         @endif
     </div>
 @endif
