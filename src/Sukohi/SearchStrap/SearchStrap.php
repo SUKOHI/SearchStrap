@@ -24,7 +24,7 @@ class SearchStrap {
     		}
     		
     	}
-    	
+
     	return View::make('packages.sukohi.search-strap.main', [
     		'filters' => $this->_filters,
     		'dropdown_data' => $this->_dropdown_data, 
